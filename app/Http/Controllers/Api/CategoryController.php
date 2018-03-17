@@ -16,11 +16,20 @@ class CategoryController extends Controller
         $this->category = $category;
     }
 
-    public function index(StoreUpdateCategoryFormRequest $request)
+    public function index(Request $request)
     {
-        $categories = $this->category->getResults($request->name);
+       $category = $this->category->find($id);
 
         return response()->json($categories);
+    }
+
+    public function show($id)
+    {
+        $category = $this->category->find($id);
+        if(!$category)            
+            return response()->json(['error' => 'Not found'], 404);
+
+        return response()->json($category);
     }
 
     public function store(StoreUpdateCategoryFormRequest $request)
@@ -42,7 +51,7 @@ class CategoryController extends Controller
         return response()->json($category);
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $category = $this->category->find($id);
 
