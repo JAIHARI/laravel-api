@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
+use App\Http\Requests\StoreUpdateCategoryFormRequest;
 
 class CategoryController extends Controller
 {
@@ -15,21 +16,21 @@ class CategoryController extends Controller
         $this->category = $category;
     }
 
-    public function index(Request $request)
+    public function index(StoreUpdateCategoryFormRequest $request)
     {
         $categories = $this->category->getResults($request->name);
 
         return response()->json($categories);
     }
 
-    public function store(Request $request)
+    public function store(StoreUpdateCategoryFormRequest $request)
     {
         $category = $this->category->create($request->all());
 
         return response()->json($category, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreUpdateCategoryFormRequest $request, $id)
     {
         $category = $this->category->find($id);
 
