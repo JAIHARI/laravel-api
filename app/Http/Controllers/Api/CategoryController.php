@@ -8,11 +8,24 @@ use App\Category;
 
 class CategoryController extends Controller
 {
-    public function index(Category $category, Request $request){
+    private $category;
 
-        $categories = $category->getResults($request->name);
+    public function __construct(Category $category)
+    {
+        $this->category = $category;
+    }
+
+    public function index(Request $request)
+    {
+        $categories = $this->category->getResults($request->name);
 
         return response()->json($categories);
+    }
+
+    public function store(Request $request)
+    {
+        $category = $this->category->create($request->all());
         
+        return response()->json($category, 201);
     }
 }
