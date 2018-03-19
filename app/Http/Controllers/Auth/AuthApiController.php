@@ -35,7 +35,7 @@ class AuthApiController extends Controller
     {
         try {
 
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
+            if (!$user = JWTAuth::parseToken()->authenticate()) {
                 return response()->json(['user_not_found'], 404);
             }
 
@@ -55,6 +55,24 @@ class AuthApiController extends Controller
 
         // the token is valid and we have found the user via the sub claim
         return response()->json(compact('user'));
+    }
+
+    public function refreshToken()
+    {
+        if(!$token = JWTAuth::getToken())
+            return response()->json(['error' => 'token_not_send'], 401);
+            
+        try{
+
+            $token = JWTAuth::refresh();
+
+        }catch(Tymon\JWTAuth\Exceptions\TokenInvalidException $e){
+
+            return response()->json(['token_invalid'], $e->getStatusCode());
+            
+        }
+
+        return response()->json(compact('token'));
     }
 
     
