@@ -18,7 +18,7 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-       $category = $this->category->find($id);
+        $categories = $this->category->getResults();
 
         return response()->json($categories);
     }

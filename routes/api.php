@@ -6,4 +6,13 @@ $this->put('categories/{id}','Api\CategoryController@update');
 $this->delete('categories/{id}','Api\CategoryController@delete');
 */
 
-$this->apiResource('categories', 'Api\CategoryController');
+$this->post('auth', 'Auth\AuthApiController@authenticate');
+
+//$this->group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function(){
+
+    $this->apiResource('categories', 'Api\CategoryController');
+
+//});
+
+
+
