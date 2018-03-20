@@ -10,11 +10,11 @@ $this->post('auth', 'Auth\AuthApiController@authenticate');
 $this->post('auth-refresh', 'Auth\AuthApiController@refreshToken');
 $this->get('me', 'Auth\AuthApiController@getAuthenticatedUser');
 
-//$this->group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function(){
+$this->group(['prefix' => 'v1', 'namespace' => 'Api', 'middleware' => 'auth:api'], function(){
 
-    $this->apiResource('categories', 'Api\CategoryController');
+    $this->apiResource('categories', 'CategoryController');
 
-//});
+});
 
 
 
